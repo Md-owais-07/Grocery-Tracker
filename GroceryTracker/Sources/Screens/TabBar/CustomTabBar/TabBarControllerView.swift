@@ -19,6 +19,14 @@ struct TabBarControllerView: UIViewControllerRepresentable {
         let notificationTabView = UIHostingController(rootView: NotificationTabView())
         let profileTabView = UIHostingController(rootView: ProfileTabView())
         
+        let homeNav = UINavigationController(rootViewController: homeTabView)
+        let favNav = UINavigationController(rootViewController: favTabView)
+        let notificationNav = UINavigationController(rootViewController: notificationTabView)
+        let profileNav = UINavigationController(rootViewController: profileTabView)
+        
+        [homeNav, favNav, notificationNav, profileNav].forEach { nav in
+            nav.setNavigationBarHidden(true, animated: false)
+        }
         
         homeTabView.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "house"), tag: 0)
         favTabView.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "list.bullet"), tag: 1)
@@ -26,13 +34,7 @@ struct TabBarControllerView: UIViewControllerRepresentable {
         notificationTabView.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "bell"), tag: 3)
         profileTabView.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "person"), tag: 4)
         
-        tabBarController.viewControllers = [
-            UINavigationController(rootViewController: homeTabView),
-            UINavigationController(rootViewController: favTabView),
-            scanTabView,
-            UINavigationController(rootViewController: notificationTabView),
-            UINavigationController(rootViewController: profileTabView)
-        ]
+        tabBarController.viewControllers = [homeNav, favNav, scanTabView, notificationNav, profileNav]
         
         return tabBarController
     }
